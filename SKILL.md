@@ -101,30 +101,30 @@ Get current git status and branch information:
 - Changed files
 - Whether there are staged/unstaged changes
 
-### Step 2: Generate commit message
+### Step 2: 生成提交信息
 
-Analyze the changes and generate a commit message in Conventional Commits format:
+分析变更并生成符合 Conventional Commits 格式的中文提交信息：
 
-**Format:** `<type>(<scope>): <description>`
+**格式：** `<类型>(<作用域>): <描述>`
 
-**Types:**
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation changes
-- `style`: Code style changes (formatting, semicolons, etc.)
-- `refactor`: Code refactoring
-- `test`: Adding or updating tests
-- `chore`: Build process, dependencies, etc.
+**类型：**
+- `feat`: 新功能
+- `fix`: Bug 修复
+- `docs`: 文档变更
+- `style`: 代码样式变更（格式化、分号等）
+- `refactor`: 代码重构
+- `test`: 添加或更新测试
+- `chore`: 构建过程、依赖等
 
-**Example:**
-- `feat(report): add aggregation card component`
-- `fix(auth): resolve login token expiration issue`
+**示例：**
+- `feat(report): 添加聚合卡片组件`
+- `fix(auth): 解决登录令牌过期问题`
 
-**Process:**
-1. Look at changed files to determine scope (e.g., `Report/`, `Auth/`, `Common/`)
-2. Determine type based on file changes patterns
-3. Generate concise description
-4. Present to user for confirmation or edit
+**流程：**
+1. 查看变更的文件来确定作用域（例如 `Report/`、`Auth/`、`Common/`）
+2. 根据文件变更模式确定类型
+3. 生成简明的描述（中文）
+4. 展示给用户确认或编辑
 
 ### Step 3: Git operations
 
@@ -139,7 +139,20 @@ git push origin <current-branch>
 **Target branch pattern:**
 GeneBox uses version-based feature branches like `7.5.0-feature`, `7.6.0-feature`.
 
-**Ask user to select target branch** from available remote branches matching the pattern `*.*.*-feature`.
+**List available feature branches:**
+```bash
+# Get remote branches matching *.*.*-feature pattern
+git branch -r --list '*/*.*.*-feature' | sed 's/origin\///' | sort -V
+```
+
+**Ask user to select target branch** from the dynamically listed remote branches.
+
+**Example branches output:**
+- 7.5.0-feature
+- 7.6.0-feature
+- 7.7.0-feature
+
+If no matching branches found, allow manual input.
 
 **PR Title:** Same as commit message
 
@@ -204,14 +217,14 @@ export PR_REVIEWERS="reviewer1,reviewer2"
 Claude: "Select reviewers for this PR:"
 Options:
 A. 杨必万 (yangbiwan)
-B. 杨向博 (yangxiangbo)
+B. 马乐 (male)
 C. Both reviewers
 D. Skip reviewers
 
 User selects option:
 - If A: PR_REVIEWERS="yangbiwan"
-- If B: PR_REVIEWERS="yangxiangbo"
-- If C: PR_REVIEWERS="yangbiwan,yangxiangbo"
+- If B: PR_REVIEWERS="male"
+- If C: PR_REVIEWERS="yangbiwan,male"
 - If D: No reviewers
 ```
 
@@ -274,40 +287,40 @@ fi
 **User:** /genebox-code-pr
 
 **Claude:** 
-> I'll help you commit and create a PR. Let me check the current status...
+> 我来帮你提交代码并创建 PR。先查看当前状态...
 > 
-> Current branch: `dev/song`
-> Changed files:
+> 当前分支：`dev/song`
+> 变更文件：
 > - App/Pages/Report/Widgets/ReportAggregation/ReportAncestryCard.js
 > - App/Pages/Report/Widgets/ReportAggregation/ReportDetailCard.js
 > 
-> Generated commit message: `feat(report): add report aggregation cards`
+> 生成的提交信息：`feat(report): 添加报告聚合卡片`
 > 
-> Please confirm or edit: [input field]
+> 请确认或编辑：[输入框]
 
 **User:** (confirms or edits)
 
 **Claude:**
-> Which target branch?
+> 选择目标分支：
 > - 7.5.0-feature
 > - 7.6.0-feature
-> - Other: [input]
+> - 7.7.0-feature
+> - 其他：[输入分支名]
 
 **User:** Selects 7.5.0-feature
 
 **Claude:**
-> Select reviewers for this PR:
-> A. 杨必万 (yangbiwan@lasoplanet.com)
-> B. 杨向博 (yangxiangbo@lasoplanet.com)
-> C. Both reviewers
-> D. Enter custom reviewer(s)
-> E. Skip reviewers
+> 选择此 PR 的审核人：
+> A. 杨必万 (yangbiwan)
+> B. 马乐 (male)
+> C. 两位审核人
+> D. 跳过审核人
 
 **User:** Selects C
 
 **Claude:**
-> Committing and pushing...
-> Creating PR to merge `dev/song` → `7.5.0-feature` with reviewers...
+> 正在提交并推送...
+> 正在创建 PR，将 `dev/song` → `7.5.0-feature` 合并并添加审核人...
 > 
-> ✓ PR created: http://git.dev.genebox.cn/projects/APP/repos/rnapp/pull-requests/XXXX/overview
-> 📋 Reviewers: yangbiwan, yangxiangbo
+> ✓ PR 已创建：http://git.dev.genebox.cn/projects/APP/repos/rnapp/pull-requests/XXXX/overview
+> 📋 审核人：yangbiwan, male
