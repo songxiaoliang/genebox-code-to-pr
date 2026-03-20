@@ -1,0 +1,40 @@
+{
+  "skill_name": "genebox-code-pr",
+  "evals": [
+    {
+      "id": 1,
+      "name": "basic-feature-commit",
+      "prompt": "I just finished adding a new ReportAggregation component with ReportAncestryCard.js, ReportDetailCard.js, and several image assets. I'm on branch dev/song. Please commit and create a PR.",
+      "expected_output": "Claude should generate a commit message like 'feat(report): add report aggregation cards and assets', commit the changes, push, and create a PR from dev/song to a version feature branch (e.g., 7.5.0-feature).",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "fix-bug-commit",
+      "prompt": "I fixed a bug in the login authentication where the token wasn't refreshing properly. Fixed in Auth/TokenManager.js. On branch dev/fix-auth. Create a PR please.",
+      "expected_output": "Claude should generate commit message 'fix(auth): resolve token refresh issue', commit, push, and create PR.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "multiple-change-types",
+      "prompt": "I've made changes across the codebase: added a new API endpoint in Services/API.js, updated documentation in README.md, and refactored some utility functions in Utils/Helpers.js. Branch is dev/multi-changes. Submit a PR.",
+      "expected_output": "Claude should analyze all changes and either create multiple commits or choose the most significant type (likely 'feat' for the API endpoint) with appropriate scope.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "empty-changes",
+      "prompt": "Create a PR for my current branch. I think I made changes but I'm not sure.",
+      "expected_output": "Claude should check git status, find no changes, and inform the user gracefully instead of failing.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "name": "style-only-changes",
+      "prompt": "I ran prettier on the whole project and fixed all formatting issues across 20 files. Branch dev/formatting. Need a PR.",
+      "expected_output": "Claude should generate 'style: apply code formatting across project' or similar, and create the PR.",
+      "files": []
+    }
+  ]
+}
