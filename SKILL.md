@@ -262,15 +262,13 @@ fi
   }
 }
 ```
-
 **Display result to user:**
 ```
 ✅ PR created successfully!
 📝 Title: feat(report): add report aggregation feature
-🔗 Link: http://git.dev.genebox.cn/projects/APP/repos/rnapp/pull-requests/5456
+🔗 Link: http://git.dev.genebox.cn/projects/APP/repos/rnapp/pull-requests/XXXX
+📋 Reviewers: <reviewer names if any>
 ```
-
-## Edge Cases
 
 **No changes to commit:**
 - Inform user and exit gracefully
@@ -332,5 +330,4 @@ fi
 > 正在创建 PR，将 `dev/song` → `7.5.0-feature` 合并并添加审核人...
 > 
 > ✓ PR 已创建：http://git.dev.genebox.cn/projects/APP/repos/rnapp/pull-requests/XXXX/overview
-> 📋 审核人：yangbiwan, male
 > 📋 审核人：yangbiwan, male
