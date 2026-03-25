@@ -147,12 +147,21 @@ git branch -r --list '*/*.*.*-feature' | sed 's/origin\///' | sort -V
 
 **Ask user to select target branch** from the dynamically listed remote branches.
 
-**Example branches output:**
-- 7.5.0-feature
-- 7.6.0-feature
-- 7.7.0-feature
+**Then ask user to select reviewers:**
+```
+Claude: "Select reviewers for this PR:"
+Options:
+A. 杨必万 (yangbiwan)
+B. 马乐 (male)
+C. Both reviewers
+D. Skip reviewers
 
-If no matching branches found, allow manual input.
+User selects option:
+- If A: PR_REVIEWERS="yangbiwan"
+- If B: PR_REVIEWERS="male"
+- If C: PR_REVIEWERS="yangbiwan,male"
+- If D: No reviewers (empty)
+```
 
 **PR Title:** Same as commit message
 
@@ -323,4 +332,5 @@ fi
 > 正在创建 PR，将 `dev/song` → `7.5.0-feature` 合并并添加审核人...
 > 
 > ✓ PR 已创建：http://git.dev.genebox.cn/projects/APP/repos/rnapp/pull-requests/XXXX/overview
+> 📋 审核人：yangbiwan, male
 > 📋 审核人：yangbiwan, male
