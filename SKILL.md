@@ -241,7 +241,7 @@ User selects option:
 ```bash
 # Auto-select reviewers based on branch pattern
 if [[ $CURRENT_BRANCH == *"report"* ]]; then
-  export PR_REVIEWERS="yangxiangbo"
+  export PR_REVIEWERS="male"
 elif [[ $CURRENT_BRANCH == *"auth"* ]]; then
   export PR_REVIEWERS="yangbiwan"
 fi
