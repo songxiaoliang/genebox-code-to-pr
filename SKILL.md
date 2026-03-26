@@ -147,21 +147,12 @@ git branch -r --list '*/*.*.*-feature' | sed 's/origin\///' | sort -V
 
 **Ask user to select target branch** from the dynamically listed remote branches.
 
-**Then ask user to select reviewers:**
-```
-Claude: "Select reviewers for this PR:"
-Options:
-A. 杨必万 (yangbiwan)
-B. 马乐 (male)
-C. Both reviewers
-D. Skip reviewers
+**Example branches output:**
+- 7.5.0-feature
+- 7.6.0-feature
+- 7.7.0-feature
 
-User selects option:
-- If A: PR_REVIEWERS="yangbiwan"
-- If B: PR_REVIEWERS="male"
-- If C: PR_REVIEWERS="yangbiwan,male"
-- If D: No reviewers (empty)
-```
+If no matching branches found, allow manual input.
 
 **PR Title:** Same as commit message
 
@@ -227,21 +218,23 @@ Claude: "Select reviewers for this PR:"
 Options:
 A. 杨必万 (yangbiwan)
 B. 马乐 (male)
-C. Both reviewers
-D. Skip reviewers
+C. 宋雪亮 (songxueliang)
+D. 三位审核人
+E. 跳过审核人
 
 User selects option:
 - If A: PR_REVIEWERS="yangbiwan"
 - If B: PR_REVIEWERS="male"
-- If C: PR_REVIEWERS="yangbiwan,male"
-- If D: No reviewers
+- If C: PR_REVIEWERS="songxueliang"
+- If D: PR_REVIEWERS="yangbiwan,male,songxueliang"
+- If E: No reviewers
 ```
 
 **Option C: Branch-based reviewers**
 ```bash
 # Auto-select reviewers based on branch pattern
 if [[ $CURRENT_BRANCH == *"report"* ]]; then
-  export PR_REVIEWERS="male"
+  export PR_REVIEWERS="yangxiangbo"
 elif [[ $CURRENT_BRANCH == *"auth"* ]]; then
   export PR_REVIEWERS="yangbiwan"
 fi
@@ -262,13 +255,15 @@ fi
   }
 }
 ```
+
 **Display result to user:**
 ```
 ✅ PR created successfully!
 📝 Title: feat(report): add report aggregation feature
-🔗 Link: http://git.dev.genebox.cn/projects/APP/repos/rnapp/pull-requests/XXXX
-📋 Reviewers: <reviewer names if any>
+🔗 Link: http://git.dev.genebox.cn/projects/APP/repos/rnapp/pull-requests/5456
 ```
+
+## Edge Cases
 
 **No changes to commit:**
 - Inform user and exit gracefully
@@ -320,14 +315,15 @@ fi
 > 选择此 PR 的审核人：
 > A. 杨必万 (yangbiwan)
 > B. 马乐 (male)
-> C. 两位审核人
-> D. 跳过审核人
+> C. 宋雪亮 (songxueliang)
+> D. 三位审核人
+> E. 跳过审核人
 
-**User:** Selects C
+**User:** Selects D
 
 **Claude:**
 > 正在提交并推送...
 > 正在创建 PR，将 `dev/song` → `7.5.0-feature` 合并并添加审核人...
 > 
 > ✓ PR 已创建：http://git.dev.genebox.cn/projects/APP/repos/rnapp/pull-requests/XXXX/overview
-> 📋 审核人：yangbiwan, male
+> 📋 审核人：yangbiwan, male, songxueliang
